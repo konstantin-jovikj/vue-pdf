@@ -11,7 +11,7 @@ class StoreDocumentRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,12 @@ class StoreDocumentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'user_id' => 'auth()->user.id',
+            'marka' => 'required',
+            'doctype' => 'required|exists:doc_types,id',
+            'tip' => 'required',
+            'varijanta' => 'required',
+            'file' => 'required|mimes:pdf|max:10240',
         ];
     }
 }

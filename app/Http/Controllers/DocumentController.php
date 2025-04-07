@@ -13,7 +13,10 @@ class DocumentController extends Controller
      */
     public function index()
     {
-        //
+        $documents = Document::all();
+        return inertia('documents/DocumentsIndex', [
+            'documents' => $documents,
+        ]);
     }
 
     /**
@@ -29,7 +32,24 @@ class DocumentController extends Controller
      */
     public function store(StoreDocumentRequest $request)
     {
-        //
+        $data = $request->validated();
+        $data['user_id'] = auth()->id();
+
+        if ($request->hasFile('file')) {
+            $filePath = $request->file('file')->store('documents', 'public'); // Save in storage/app/public/documents
+            $data['filepdf'] = $filePath;
+        }
+
+        $document = Document::create([
+            'marka' => $data['marka'],
+            'doc_type_id' => $data['doctype'],
+            'tip' => $data['tip'],
+            'varijanta' => $data['varijanta'],
+            'filepdf' => $data['filepdf'] ?? null,
+            'user_id' => $data['user_id']
+        ]);
+
+        return redirect()->route('documents.index')->with('success', 'Записот е успешно креиран');
     }
 
     /**
