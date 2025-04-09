@@ -24,6 +24,6 @@ class Document extends Model
 
     public function docType()
     {
-        return $this->belongsTo(DocType::class);
+        return $this->belongsTo(DocType::class, 'doc_type_id'); // Make sure this matches your column name
     }
 }
