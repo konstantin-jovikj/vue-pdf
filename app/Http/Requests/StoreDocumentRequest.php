@@ -25,8 +25,16 @@ class StoreDocumentRequest extends FormRequest
             'user_id' => 'auth()->user.id',
             'marka' => 'required',
             'doctype' => 'required|exists:doc_types,id',
+            'fuel' => 'exists:fuels,id',
             'tip' => 'required',
             'varijanta' => 'required',
+            'izvedba' => 'required',
+            'eu_odobrenie' => '',
+            'tip_motor' => '',
+            'cm3' => 'max:10000|integer',
+            'kw' => 'max:10000|integer',
+            'co2_nedc' => 'max:500|nullable|integer|required_without:co2_wltp',
+            'co2_wltp' => 'max:500|nullable|integer|required_without:co2_nedc',
             'file' => 'required|mimes:pdf|max:10240',
         ];
     }

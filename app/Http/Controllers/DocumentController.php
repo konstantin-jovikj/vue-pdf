@@ -14,7 +14,7 @@ class DocumentController extends Controller
      */
     public function index()
     {
-        $documents = Document::with('docType')->paginate(20);
+        $documents = Document::with('docType', 'fuel')->paginate(20);
         return inertia('documents/DocumentsIndex', [
             'documents' => $documents,
         ]);
@@ -41,13 +41,22 @@ class DocumentController extends Controller
             $data['filepdf'] = $filePath;
         }
 
+        // dd($data);
         $document = Document::create([
             'marka' => $data['marka'],
             'doc_type_id' => $data['doctype'],
+            'fuel_id' => $data['fuel'],
             'tip' => $data['tip'],
             'varijanta' => $data['varijanta'],
             'filepdf' => $data['filepdf'] ?? null,
-            'user_id' => $data['user_id']
+            'user_id' => $data['user_id'],
+            'izvedba' => $data['izvedba'],
+            'eu_odobrenie' => $data['eu_odobrenie'],
+            'tip_motor' => $data['tip_motor'],
+            'cm3' => $data['cm3'],
+            'kw' => $data['kw'],
+            'co2_nedc' => $data['co2_nedc'],
+            'co2_wltp' => $data['co2_wltp'],
         ]);
 
         return redirect()->route('documents.index')->with('success', 'Записот е успешно креиран');

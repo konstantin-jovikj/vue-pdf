@@ -36,60 +36,95 @@ onMounted(() => {
 
     <AppLayout :breadcrumbs="breadcrumbs">
         <div class="p-4">
-            <table class="min-w-full divide-y divide-gray-200 shadow table-auto sm:rounded-lg">
-                <thead class="bg-primary">
-                    <tr>
-                        <th scope="col"
-                            class="px-6 py-3 text-xs font-medium tracking-wider text-left text-white uppercase bg-sky-700">
-                            Id
-                        </th>
-                        <th scope="col"
-                            class="px-6 py-3 text-xs font-medium tracking-wider text-left text-white uppercase bg-sky-700">
+            <table class="min-w-full divide-y-2 divide-gray-800 shadow table-auto sm:rounded-lg rounded-lg">
+                <thead class="bg-primary text-[11px]">
+                    <tr class="bg-gray-200 text-gray-700 rounded pt-2">
+
+                        <th scope="col" class="px-6 py-3  font-medium tracking-wider text-left">
                             Бр
                         </th>
-                        <th scope="col"
-                            class="px-6 py-3 text-xs font-medium tracking-wider text-left text-white uppercase bg-sky-700">
-                            Tip na Dokument
+                        <th scope="col" class="px-6 py-3  font-medium text-left  ">
+                            Тип на Документ
                         </th>
-                        <th scope="col"
-                            class="px-6 py-3 text-xs font-medium tracking-wider text-left text-white uppercase bg-sky-700">
+                        <th scope="col" class="px-6 py-3  font-medium  text-left  ">
                             Марка
                         </th>
-                        <th scope="col"
-                            class="px-6 py-3 text-xs font-medium tracking-wider text-left text-white uppercase bg-sky-700">
+                        <th scope="col" class="px-6 py-3  font-medium  text-left  ">
                             Тип
                         </th>
-                        <th scope="col"
-                            class="px-6 py-3 text-xs font-medium tracking-wider text-left text-white uppercase bg-sky-700">
+                        <th scope="col" class="px-6 py-3  font-medium  text-left  ">
                             Варијанта
                         </th>
+                        <th scope="col" class="px-6 py-3  font-medium  text-left  ">
+                            Изведба
+                        </th>
+                        <th scope="col" class="px-6 py-3  font-medium  text-left  ">
+                            ЕУ Одобрение
+                        </th>
+                        <th scope="col" class="px-6 py-3  font-medium  text-left  ">
+                            Зафатнина на Мотор (cm3)
+                        </th>
+                        <th scope="col" class="px-6 py-3  font-medium  text-left  ">
+                            Силина на Мотор (kW)
+                        </th>
+                        <th scope="col" class="px-6 py-3  font-medium  text-left  ">
+                            Гориво
+                        </th>
+                        <th scope="col" class="px-6 py-3  font-medium  text-left  ">
+                            CO2 (g/km)
+                        </th>
+                        <th scope="col" class="px-6 py-3  font-medium  text-left  ">
+                            Акција
+                        </th>
+
                     </tr>
                 </thead>
-                <tbody class="bg-white divide-y divide-gray-200">
-                    <tr class="hover:bg-slate-100" v-for="(document, index) in documents.data" :key="document.id">
-                        <td class="text-xs text-slate-300">
-                            {{ document.id }}
-                        </td>
+                <tbody class="bg-white divide-y divide-x divide-gray-200 text-[12px]">
+                    <tr class="hover:bg-slate-100 " v-for="(document, index) in documents.data" :key="document.id">
+
                         <td class="">
                             {{ documents.from + index }}
                         </td>
-                        <td class="font-bold">
+                        <td class="font-normal py-1 ">
                             {{ document.doc_type ? document.doc_type.doc_type : '/' }}
                         </td>
-                        <td class="font-bold">
+                        <td class="font-normal py-1 ">
                             {{ document.marka }}
                         </td>
-                        <td class="font-bold">
+                        <td class="font-normal py-1 ">
                             {{ document.tip }}
                         </td>
-                        <td class="font-bold">
+                        <td class="font-normal py-1 ">
                             {{ document.varijanta }}
+                        </td>
+                        <td class="font-normal py-1 ">
+                            {{ document.izvedba }}
+                        </td>
+                        <td class="font-normal py-1 ">
+                            {{ document.eu_odobrenie }}
+                        </td>
+                        <td class="font-normal py-1 ">
+                            {{ document.cm3 }}
+                        </td>
+                        <td class="font-normal py-1 ">
+                            {{ document.kw }}
+                        </td>
+                        <td class="font-normal py-1 ">
+                            {{ document.fuel ? document.fuel.fuel : '/' }}
+                        </td>
+                        <td class="font-normal py-1 " v-if="!document.co2_nedc">
+                            {{ document.co2_wltp }}
+                        </td>
+                        <td class="font-normal py-1 " v-else>
+                            {{ document.co2_nedc }}
                         </td>
 
                         <td class="">
-                            <div class="flex gap-2">
+                            <div class="flex gap-2 py-1 ">
 
-
+                                <button>
+                                    Edit
+                                </button>
 
                             </div>
                         </td>

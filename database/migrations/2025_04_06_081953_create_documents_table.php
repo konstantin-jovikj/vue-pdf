@@ -1,11 +1,11 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -15,11 +15,20 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id');
             $table->foreignId('doc_type_id');
+            $table->foreignId('fuel_id')->nullable();
             $table->string('marka');
             $table->string('tip');
             $table->string('varijanta');
+            $table->string('izvedba');
+            $table->string('eu_odobrenie')->nullable();
+            $table->string('tip_motor')->nullable();
+            $table->integer('cm3')->nullable();
+            $table->integer('kw')->nullable();
+            $table->integer('co2_nedc')->nullable();
+            $table->integer('co2_wltp')->nullable();
             $table->string('filepdf');
             $table->timestamps();
+
         });
     }
 

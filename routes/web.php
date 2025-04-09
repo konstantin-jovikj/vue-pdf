@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DocumentController;
 use App\Models\DocType;
+use App\Models\Fuel;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -11,8 +12,10 @@ Route::get('/', function () {
 
 Route::get('dashboard', function () {
     $docTypes = DocType::all();
+    $fuels = Fuel::all();
     return Inertia::render('Dashboard', [
         'docTypes' => $docTypes,
+        'fuels' => $fuels,
     ]);
 })->middleware(['auth', 'verified'])->name('dashboard');
 
