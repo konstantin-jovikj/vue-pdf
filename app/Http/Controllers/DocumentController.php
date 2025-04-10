@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\DocType;
 use App\Models\Document;
+use Illuminate\Http\Request;
 use App\Http\Requests\StoreDocumentRequest;
 use App\Http\Requests\UpdateDocumentRequest;
 
@@ -12,9 +13,41 @@ class DocumentController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    // public function index()
+    // {
+    //     $documents = Document::with('docType', 'fuel')->paginate(15);
+    //     return inertia('documents/DocumentsIndex', [
+    //         'documents' => $documents,
+    //     ]);
+    // }
+
+
+    public function index(Request $request)
     {
-        $documents = Document::with('docType', 'fuel')->paginate(20);
+        $query = Document::with('docType', 'fuel');
+
+        if ($request->search_marka) {
+            $query->where('marka', 'like', '%' . $request->search_marka . '%');
+        }
+
+        if ($request->search_tip) {
+            $query->where('tip', 'like', '%' . $request->search_tip . '%');
+        }
+
+        if ($request->search_varijanta) {
+            $query->where('varijanta', 'like', '%' . $request->search_varijanta . '%');
+        }
+
+        if ($request->search_izvedba) {
+            $query->where('izvedba', 'like', '%' . $request->search_izvedba . '%');
+        }
+
+        if ($request->search_odobrenie) {
+            $query->where('eu_odobrenie', 'like', '%' . $request->search_odobrenie . '%');
+        }
+
+        $documents = $query->paginate(15)->appends($request->all());
+
         return inertia('documents/DocumentsIndex', [
             'documents' => $documents,
         ]);

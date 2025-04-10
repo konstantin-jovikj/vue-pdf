@@ -59,10 +59,10 @@ const handleFileChange = (e) => {
     <Head title="Нов Запис" />
 
     <AppLayout :breadcrumbs="breadcrumbs" class="h-full">
-        <div class="flex h-full flex-1 flex-col gap-4 rounded-xl bg-red-100 p-4">
-            <div class="flex h-full auto-rows-max gap-4 bg-blue-100 flex-col md:flex-row">
+        <div class="flex h-full flex-1 flex-col gap-4 rounded-xl ">
+            <div class="flex h-full auto-rows-max gap-4  flex-col md:flex-row">
                 <div
-                    class="w-full grid h-full auto-rows-max gap-2 rounded-xl border border-sidebar-border/70 bg-slate-600 p-4 dark:border-sidebar-border">
+                    class="w-full grid h-full auto-rows-max gap-2 rounded-xl mt-8 border-sidebar-border/70 p-4 dark:border-sidebar-border">
                     <form @submit.prevent="
                         form.post('/document/store', {
                             forceFormData: true,
@@ -196,17 +196,17 @@ const handleFileChange = (e) => {
 
 
 
-                        <div class="grid gap-2 w-50">
-                            <Button type="submit" class="mt-4 w-full" :tabindex="4" :disabled="form.processing">
+                        <div class="flex gap-2 w-50 justify-center ">
+                            <Button type="submit" class="mt-4 w-[200px] " :tabindex="4" :disabled="form.processing">
                                 <span v-if="form.processing"
                                     class="h-4 w-4 border-2 border-white border-t-transparent rounded-full animate-spin inline-block"></span>
 
-                                Zacuvaj
+                                Зачувај
                             </Button>
                         </div>
                     </form>
                 </div>
-                <div class="w-full  rounded-xl border border-sidebar-border/70 bg-slate-300 dark:border-sidebar-border">
+                <div class="w-full  rounded-xl border border-sidebar-border/70 bg-gray-50 dark:border-sidebar-border">
                     <div v-if="pdfUrl" class="h-full  rounded border bg-red-400">
                         <iframe :src="pdfUrl" class="h-[100%] w-full" />
                     </div>
