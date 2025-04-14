@@ -92,13 +92,22 @@ const handleFileChange = (e) => {
                                 <InputError :message="form.errors.file" />
                             </div>
                         </div>
-                        <div class="grid grid-cols-1 md:grid-cols-1 gap-4">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <!-- Marka -->
                             <div class="grid gap-2">
                                 <Label for="marka" class="ms-4">Марка (D.1)</Label>
                                 <Input id="marka" type="text" required autofocus :tabindex="1" autocomplete="marka"
                                     v-model="form.marka" placeholder="marka" />
                                 <InputError :message="form.errors.marka" />
+                            </div>
+
+                            <!-- Komercijalna Oznaka -->
+                            <div class="grid gap-2">
+                                <Label for="komercijalna_oznaka" class="ms-4">Комерцијална Ознака (D.3)</Label>
+                                <Input id="komercijalna_oznaka" type="text" required autofocus :tabindex="1"
+                                    autocomplete="komercijalna_oznaka" v-model="form.komercijalna_oznaka"
+                                    placeholder="komercijalna_oznaka" />
+                                <InputError :message="form.errors.komercijalna_oznaka" />
                             </div>
                         </div>
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
