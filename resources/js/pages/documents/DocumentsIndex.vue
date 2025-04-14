@@ -1,4 +1,5 @@
-<script setup>
+<script setup lang="js">
+
 import AppLayout from '@/layouts/AppLayout.vue';
 import { Head, Link, router } from '@inertiajs/vue3';
 import { onMounted, watch, ref } from 'vue';
