@@ -25,6 +25,7 @@ Route::get('/documents', [DocumentController::class, 'index'])->middleware(['aut
 Route::get('/document/{document}/show', [DocumentController::class, 'show'])->middleware(['auth', 'verified'])->name('document.show');
 Route::get('/document/{document}/edit', [DocumentController::class, 'edit'])->middleware(['auth', 'verified'])->name('document.edit');
 Route::put('/document/update/{document}', [DocumentController::class, 'update'])->middleware(['auth', 'verified'])->name('document.update');
+Route::delete('/document/delete/{document}', [DocumentController::class, 'destroy'])->middleware(['auth', 'verified'])->name('document.delete');
 
 
 require __DIR__ . '/settings.php';

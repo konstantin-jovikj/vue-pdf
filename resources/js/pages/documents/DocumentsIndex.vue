@@ -56,6 +56,19 @@ onMounted(() => {
         console.log("DocType on first document:", props.documents.data[0].docType);
     }
 });
+
+
+const deleteDocument = (id) => {
+    if (confirm("Дали сигурно сакаш да го избришеш овој документ?")) {
+        router.delete("/document/delete/" + id, {
+            preserveState: false,
+            onSuccess: () => {
+                flashMessage.value = props.flash.message;
+            },
+        });
+    }
+};
+
 </script>
 
 <template>
@@ -220,7 +233,8 @@ onMounted(() => {
                                     :href="`/document/${document.id}/edit`">
                                 измени
                                 </Link>
-                                <button
+
+                                <button @click="() => deleteDocument(document.id)"
                                     class="px-2 py-1 bg-red-500 ms-1 rounded-md text-[9px] shadow-sm hover:bg-red-700 text-white font-bold">
                                     избриши
                                 </button>

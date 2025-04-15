@@ -96,15 +96,9 @@ const handleFileChange = (e) => {
             <div class="flex h-full auto-rows-max gap-4  flex-col md:flex-row">
                 <div
                     class="w-full grid h-full auto-rows-max gap-2 rounded-xl mt-8 border-sidebar-border/70 p-4 dark:border-sidebar-border">
-                    <form @submit.prevent="
-                        // form.put(`/document/${document.id}/update`, {
-                        //     forceFormData: true,
-                        //     onError: () => form.reset(),
-                        // })
-
-                        form.put('/document/update/' + document.id, {
-                            onError: () => form.reset(),
-                        })
+                    <form @submit.prevent=" form.put('/document/update/' + document.id, {
+                        onError: () => form.reset(),
+                    })
                         " class="flex flex-col gap-6">
 
 

@@ -205,6 +205,7 @@ class DocumentController extends Controller
      */
     public function destroy(Document $document)
     {
-        //
+        $document->delete();
+        return redirect()->route('documents.index')->with('message', 'Документот е успешно избришан.');
     }
 }
