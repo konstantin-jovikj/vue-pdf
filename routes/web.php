@@ -22,6 +22,8 @@ Route::get('dashboard', function () {
 Route::post('document/store', [DocumentController::class, 'store'])->middleware(['auth', 'verified'])->name('document.store');
 
 Route::get('/documents', [DocumentController::class, 'index'])->middleware(['auth', 'verified'])->name('documents.index');
+Route::get('/document/{document}/show', [DocumentController::class, 'show'])->middleware(['auth', 'verified'])->name('document.show');
+Route::get('/document/{document}/edit', [DocumentController::class, 'edit'])->middleware(['auth', 'verified'])->name('document.edit');
 
 require __DIR__ . '/settings.php';
 require __DIR__ . '/auth.php';

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\DocType;
 use App\Models\Document;
+use App\Models\Fuel;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreDocumentRequest;
 use App\Http\Requests\UpdateDocumentRequest;
@@ -56,7 +57,7 @@ class DocumentController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Document $document)
     {
         //
     }
@@ -120,7 +121,10 @@ class DocumentController extends Controller
      */
     public function show(Document $document)
     {
-        //
+        $document->load('user', 'docType', 'fuel');
+        return inertia('documents/DocumentShow', [
+            'document' => $document->toArray(),
+        ]);
     }
 
     /**
@@ -128,7 +132,14 @@ class DocumentController extends Controller
      */
     public function edit(Document $document)
     {
-        //
+        $document->load('user', 'docType', 'fuel');
+        $docTypes = DocType::all();
+        $fuels = Fuel::all();
+        return inertia('documents/DocumentEdit', [
+            'document' => $document,
+            'docTypes' => $docTypes,
+            'fuels' => $fuels,
+        ]);
     }
 
     /**

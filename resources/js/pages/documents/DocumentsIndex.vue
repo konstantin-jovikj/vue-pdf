@@ -210,14 +210,16 @@ onMounted(() => {
                         <td class="">
                             <div class="flex gap-2 py-1 ">
 
-                                <button
-                                    class="px-2 py-1 bg-sky-500 ms-1 rounded-md text-[9px] shadow-sm hover:bg-sky-700 text-white font-bold">
-                                    погледни
-                                </button>
-                                <button
-                                    class="px-2 py-1 bg-yellow-500 ms-1 rounded-md text-[9px] shadow-sm hover:bg-yellow-700 text-white font-bold">
-                                    измени
-                                </button>
+                                <Link
+                                    class="px-2 py-1 bg-sky-500 ms-1 rounded-md text-[9px] shadow-sm hover:bg-sky-700 text-white font-bold"
+                                    :href="`/document/${document.id}/show`">
+                                погледни
+                                </Link>
+                                <Link
+                                    class="px-2 py-1 bg-yellow-500 ms-1 rounded-md text-[9px] shadow-sm hover:bg-yellow-700 text-white font-bold"
+                                    :href="`/document/${document.id}/edit`">
+                                измени
+                                </Link>
                                 <button
                                     class="px-2 py-1 bg-red-500 ms-1 rounded-md text-[9px] shadow-sm hover:bg-red-700 text-white font-bold">
                                     избриши
