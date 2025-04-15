@@ -39,32 +39,32 @@ const form = useForm({
     varijanta: props.document.varijanta,
     izvedba: props.document.izvedba,
     file: props.document?.file,
-    fuel: '',
-    tip_motor: '',
-    eu_odobrenie: '',
-    cm3: '',
-    kw: '',
-    co2_nedc: '',
-    co2_wltp: '',
-    komercijalna_oznaka: '',
-    godina_na_proizvodstvo: '',
-    najgolema_konstruktivna_vkupna_masa: '',
-    najgolema_legalna_vkupna_masa: '',
-    najgolema_legalna_vkupna_masa_na_grupa_vozila: '',
-    masa_na_voziloto: '',
-    kategorija_i_vid: '',
-    oblik_i_namena: '',
-    broj_na_coc: '',
-    broj_na_oski: '',
-    dolzina: '',
-    sirina: '',
-    visina: '',
-    dozvoleni_pnevmatici_i_naplatki_1: '',
-    dozvoleni_pnevmatici_i_naplatki_2: '',
-    broj_na_vrtezi: '',
-    vin: '',
-    odnos_silina_masa: '',
-    boja_na_voziloto: '',
+    fuel: props.document.fuel?.id,
+    tip_motor: props.document.tip_motor,
+    eu_odobrenie: props.document.eu_odobrenie,
+    cm3: props.document.cm3,
+    kw: props.document.kw,
+    co2_nedc: props.document.co2_nedc,
+    co2_wltp: props.document.co2_wltp,
+    komercijalna_oznaka: props.document.komercijalna_oznaka,
+    godina_na_proizvodstvo: props.document.godina_na_proizvodstvo,
+    najgolema_konstruktivna_vkupna_masa: props.document.najgolema_konstruktivna_vkupna_masa,
+    najgolema_legalna_vkupna_masa: props.document.najgolema_legalna_vkupna_masa,
+    najgolema_legalna_vkupna_masa_na_grupa_vozila: props.document.najgolema_legalna_vkupna_masa_na_grupa_vozila,
+    masa_na_voziloto: props.document.masa_na_voziloto,
+    kategorija_i_vid: props.document.kategorija_i_vid,
+    oblik_i_namena: props.document.oblik_i_namena,
+    broj_na_coc: props.document.broj_na_coc,
+    broj_na_oski: props.document.broj_na_oski,
+    dolzina: props.document.dolzina,
+    sirina: props.document.sirina,
+    visina: props.document.visina,
+    dozvoleni_pnevmatici_i_naplatki_1: props.document.dozvoleni_pnevmatici_i_naplatki_1,
+    dozvoleni_pnevmatici_i_naplatki_2: props.document.dozvoleni_pnevmatici_i_naplatki_2,
+    broj_na_vrtezi: props.document.broj_na_vrtezi,
+    vin: props.document.vin,
+    odnos_silina_masa: props.document.odnos_silina_masa,
+    boja_na_voziloto: props.document.boja_na_voziloto,
     datum_na_dokument: props.document?.datum_na_dokument,
 });
 
@@ -97,11 +97,16 @@ const handleFileChange = (e) => {
                 <div
                     class="w-full grid h-full auto-rows-max gap-2 rounded-xl mt-8 border-sidebar-border/70 p-4 dark:border-sidebar-border">
                     <form @submit.prevent="
-                        form.post('/document/store', {
-                            forceFormData: true,
+                        // form.put(`/document/${document.id}/update`, {
+                        //     forceFormData: true,
+                        //     onError: () => form.reset(),
+                        // })
+
+                        form.put('/document/update/' + document.id, {
                             onError: () => form.reset(),
                         })
                         " class="flex flex-col gap-6">
+
 
 
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
