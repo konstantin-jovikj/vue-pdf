@@ -4,9 +4,13 @@ import NavMain from '@/components/NavMain.vue';
 import NavUser from '@/components/NavUser.vue';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
-import { Link } from '@inertiajs/vue3';
-import { BookOpen, Folder, LayoutGrid, LibraryBig } from 'lucide-vue-next';
+import { Link, usePage } from '@inertiajs/vue3';
+import { BookOpen, Folder, LayoutGrid, LibraryBig, Users } from 'lucide-vue-next';
 import AppLogo from './AppLogo.vue';
+import { type SharedData, type User } from '@/types';
+
+const page = usePage<SharedData>();
+const user = page.props.auth.user as User;
 
 const mainNavItems: NavItem[] = [
     {
@@ -21,19 +25,15 @@ const mainNavItems: NavItem[] = [
     },
 ];
 
-// const footerNavItems: NavItem[] = [
-//     {
-//         title: 'Github Repo',
-//         href: 'https://github.com/laravel/vue-starter-kit',
-//         icon: Folder,
-//     },
-//     {
-//         title: 'Documentation',
-//         href: 'https://laravel.com/docs/starter-kits',
-//         icon: BookOpen,
-//     },
-// ];
+if (user.role_id !== 3) {
+    mainNavItems.push({
+        title: 'Корисници',
+        href: '/documents',
+        icon: Users,
+    });
+}
 </script>
+
 
 <template>
     <Sidebar collapsible="icon" variant="inset">

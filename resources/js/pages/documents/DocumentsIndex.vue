@@ -1,13 +1,24 @@
 <script setup lang="js">
 
 import AppLayout from '@/layouts/AppLayout.vue';
-import { Head, Link, router } from '@inertiajs/vue3';
+import { Head, Link, router, usePage } from '@inertiajs/vue3';
 import { onMounted, watch, ref } from 'vue';
 import InputError from '@/components/InputError.vue';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import debounce from 'lodash/debounce';
+import UserInfo from '@/components/UserInfo.vue';
+import { Eye, Pencil, Trash2 } from 'lucide-vue-next';
+import {
+    Tooltip,
+    TooltipContent,
+    TooltipProvider,
+    TooltipTrigger,
+} from '@/components/ui/tooltip'
+
+const page = usePage();
+const user = page.props.auth.user;
 
 const props = defineProps({
     documents: {
@@ -221,24 +232,53 @@ const deleteDocument = (id) => {
                         </td>
 
                         <td class="">
-                            <div class="flex gap-2 py-1 ">
+                            <div class="flex gap-4 py-1 px-2">
 
-                                <Link
-                                    class="px-2 py-1 bg-sky-500 ms-1 rounded-md text-[9px] shadow-sm hover:bg-sky-700 text-white font-bold"
-                                    :href="`/document/${document.id}/show`">
-                                погледни
-                                </Link>
-                                <Link
-                                    class="px-2 py-1 bg-yellow-500 ms-1 rounded-md text-[9px] shadow-sm hover:bg-yellow-700 text-white font-bold"
-                                    :href="`/document/${document.id}/edit`">
-                                измени
-                                </Link>
+                                <TooltipProvider>
+                                    <Tooltip>
+                                        <TooltipTrigger as-child>
+                                            <Link class=" hover:text-sky-700 text-blue-500 font-bold"
+                                                :href="`/document/${document.id}/show`">
+                                            <Eye class="font-xs w-[20px]" />
+                                            </Link>
+                                        </TooltipTrigger>
+                                        <TooltipContent>
+                                            <p>Види Детали</p>
+                                        </TooltipContent>
+                                    </Tooltip>
+                                </TooltipProvider>
 
-                                <button @click="() => deleteDocument(document.id)"
-                                    class="px-2 py-1 bg-red-500 ms-1 rounded-md text-[9px] shadow-sm hover:bg-red-700 text-white font-bold">
-                                    избриши
-                                </button>
+                                <TooltipProvider>
+                                    <Tooltip>
+                                        <TooltipTrigger as-child>
+                                            <Link v-if="document.user_id == user.id || user.role_id != 3"
+                                                class=" hover:text-yellow-700 text-yellow-600 font-bold"
+                                                :href="`/document/${document.id}/edit`">
+                                            <Pencil class="w-[18px]" />
+                                            </Link>
+                                        </TooltipTrigger>
+                                        <TooltipContent>
+                                            <p>Едитирај / Измени</p>
+                                        </TooltipContent>
+                                    </Tooltip>
+                                </TooltipProvider>
 
+
+                                <TooltipProvider>
+                                    <Tooltip>
+                                        <TooltipTrigger as-child>
+                                            <div v-if="document.user_id == user.id || user.role_id != 3">
+                                                <button @click="() => deleteDocument(document.id)"
+                                                    class=" hover:text-red-700 text-red-500 font-bold">
+                                                    <Trash2 class="w-[18px]" />
+                                                </button>
+                                            </div>
+                                        </TooltipTrigger>
+                                        <TooltipContent>
+                                            <p>Избриши</p>
+                                        </TooltipContent>
+                                    </Tooltip>
+                                </TooltipProvider>
 
                             </div>
                         </td>
