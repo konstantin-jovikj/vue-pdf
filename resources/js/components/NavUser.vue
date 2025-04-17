@@ -3,7 +3,7 @@ import UserInfo from '@/components/UserInfo.vue';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from '@/components/ui/sidebar';
 import { type SharedData, type User } from '@/types';
-import { usePage } from '@inertiajs/vue3';
+import { usePage, Link } from '@inertiajs/vue3';
 import { ChevronsUpDown } from 'lucide-vue-next';
 import UserMenuContent from './UserMenuContent.vue';
 
@@ -14,6 +14,11 @@ const { isMobile, state } = useSidebar();
 
 <template>
     <SidebarMenu>
+        <Link :href="route('register')"
+       v-if="user.role_id != 3"
+            class="inline-block rounded-sm border border-[#19140035] px-5 py-1.5 text-sm leading-normal text-[#1b1b18] hover:border-[#1915014a] dark:border-[#3E3E3A] dark:text-[#EDEDEC] dark:hover:border-[#62605b]">
+        Додај Нов Корисник
+        </Link>
         <SidebarMenuItem>
             <DropdownMenu>
                 <span class="text-xs font-bold">Оператор:</span>

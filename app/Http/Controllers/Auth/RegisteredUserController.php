@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -20,7 +21,11 @@ class RegisteredUserController extends Controller
      */
     public function create(): Response
     {
-        return Inertia::render('auth/Register');
+        $roles = Role::where('id', '!=', 1)->get();
+        return Inertia::render(
+            'auth/Register',
+            ['roles' => $roles]
+        );
     }
 
     /**
@@ -28,24 +33,40 @@ class RegisteredUserController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
+
+
     public function store(Request $request): RedirectResponse
     {
-        $request->validate([
+        // Validate the input
+        $validated = $request->validate([
+            'role_id' => 'required|integer|exists:roles,id',
             'name' => 'required|string|max:255',
-            'email' => 'required|string|lowercase|email|max:255|unique:'.User::class,
+            'email' => 'required|string|lowercase|email|max:255|unique:' . User::class,
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
+        // Ensure the role_id has a default value of 3 if it is not provided
+        $roleId = $validated['role_id'] ?? 3;  // Default to role_id = 3 if not provided
+
+        // Check if the role_id exists in the roles table
+        if (!Role::find($roleId)) {
+            return back()->withErrors(['role_id' => 'Invalid role selected.'])->withInput();
+        }
+        // dd($validated);
+        // Create the user
         $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
+            'role_id' => $roleId,
+            'name' => $validated['name'],
+            'email' => $validated['email'],
+            'password' => Hash::make($validated['password']),
         ]);
+        // dd($user);
 
-        event(new Registered($user));
+        // Trigger the Registered event (optional)
+        // event(new Registered($user));
 
-        Auth::login($user);
-
-        return to_route('dashboard');
+        return redirect()->route('documents.index')->with('success', 'Корисникот е успешно додаден');
     }
+
+
 }

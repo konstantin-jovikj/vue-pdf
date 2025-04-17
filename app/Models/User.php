@@ -23,7 +23,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'user_id',
+        'role_id',
     ];
 
     /**
@@ -49,7 +49,8 @@ class User extends Authenticatable
         ];
     }
 
-    public function documents(){
+    public function documents()
+    {
         return $this->hasMany(Document::class);
     }
 
